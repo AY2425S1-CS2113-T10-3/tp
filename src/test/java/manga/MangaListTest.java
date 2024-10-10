@@ -22,7 +22,7 @@ public class MangaListTest {
             mangaList.add(new Manga("manga2", placeholderAuthor));
             assertEquals(2, mangaList.size());
             mangaList.print();
-            assertEquals("1. manga1" + System.lineSeparator() + "2. manga2" + System.lineSeparator(),
+            assertEquals("1. manga1 | Deadline: None" + System.lineSeparator() + "2. manga2 | Deadline: None" + System.lineSeparator(),
                     outputStreamCaptor.toString());
         } finally {
             System.setOut(standardOut);

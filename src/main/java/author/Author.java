@@ -38,6 +38,15 @@ public class Author {
         mangaList.remove(manga);
     }
 
+    public Manga getManga(String name) {
+        for (Manga manga : mangaList) {
+            if (manga.getMangaName().equals(name)) {
+                return manga;
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object o) {
         // Check if they are the same object in memory
