@@ -27,7 +27,7 @@ public class AddAuthorCommandTest {
     @Test
     public void addAuthorCommand_addSingleAuthor_authorCountOne() {
         try {
-            commandUnderTest = new AddAuthorCommand("add -a \"Kubo Tite\"");
+            commandUnderTest = new AddAuthorCommand("catalog -a \"Kubo Tite\"");
             commandUnderTest.execute(ui, authorList);
             assertEquals(1, authorList.size());
         } catch (TantouException e) {
@@ -41,7 +41,7 @@ public class AddAuthorCommandTest {
     @Test
     public void addAuthorCommand_addDuplicateAuthor_authorExistsExceptionThrown() {
         try {
-            commandUnderTest = new AddAuthorCommand("add -a \"Kubo Tite\"");
+            commandUnderTest = new AddAuthorCommand("catalog -a \"Kubo Tite\"");
             commandUnderTest.execute(ui, authorList);
             // A TantouException should be thrown when a duplicate author tries to be added
             Exception exception = assertThrows(TantouException.class, () -> {

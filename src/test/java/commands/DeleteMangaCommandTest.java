@@ -34,7 +34,7 @@ class DeleteMangaCommandTest {
     @Test
     public void deleteMangaCommand_deleteSingleManga_mangaCountZero() {
         try {
-            commandUnderTest = new DeleteMangaCommand("delete -a \"test1\" -m \"test1\"");
+            commandUnderTest = new DeleteMangaCommand("catalog -d -a \"test1\" -m \"test1\"");
             commandUnderTest.execute(ui, authorList);
             assertEquals(0, author.getMangaList().size());
         } catch (TantouException e) {
@@ -48,7 +48,7 @@ class DeleteMangaCommandTest {
     @Test
     public void deleteMangaCommand_deleteNonExistingManga_mangaDoesNotExistsExceptionThrown() {
         try {
-            commandUnderTest = new DeleteMangaCommand("delete -a \"test1\" -m \"test1\"");
+            commandUnderTest = new DeleteMangaCommand("catalog -d -a \"test1\" -m \"test1\"");
             commandUnderTest.execute(ui, authorList);
             // A TantouException should be thrown when an author that does not exist is deleted
             Exception exception = assertThrows(TantouException.class, () -> commandUnderTest.execute(ui, authorList));

@@ -5,14 +5,14 @@ import author.AuthorList;
 import exceptions.TantouException;
 import ui.Ui;
 
+import static constants.Command.CATALOG_COMMAND;
 
-import static constants.Command.ADD_COMMAND;
 
 public class AddAuthorCommand extends Command {
     private String userInput;
 
     public AddAuthorCommand(String userInput) {
-        super(ADD_COMMAND);
+        super(CATALOG_COMMAND);
         this.userInput = userInput;
     }
 

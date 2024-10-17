@@ -1,18 +1,18 @@
-add -a "Kubo Tite" -m "Bleach"
-add -a "Oda Eiichiro"
-add -a Gege Akutami
-add -a "Gege Akutami" -m Jujutsu Kaisen
-add -a "Gege Akutami" -m "Jujutsu Kaisen"
-add -a
-add -a ""
-add -a -m
-add -a "" -m
-add -a "" -m ""
-add -a "Coolio" -m "Gangsta's Paradise"
-delete -a Coolio -m "Gangsta's Paradise"
-delete -a "Coolio" -m "Gangsta's Paradise"
-delete -a "Coolio" -m "Gangsta's Paradise"
-delete -a "Coolio"
-delete -a "Coolio"
-delete "Coolio"
+catalog -a "Kubo Tite" -m "Bleach"
+catalog -a "Oda Eiichiro"
+catalog -a Gege Akutami
+catalog -a "Gege Akutami" -m Jujutsu Kaisen
+catalog -a "Gege Akutami" -m "Jujutsu Kaisen"
+catalog -a
+catalog -a ""
+catalog -a -m
+catalog -a "" -m
+catalog -a "" -m ""
+catalog -a "Coolio" -m "Gangsta's Paradise"
+catalog -d -a Coolio -m "Gangsta's Paradise"
+catalog -d -a "Coolio" -m "Gangsta's Paradise"
+catalog -d -a "Coolio" -m "Gangsta's Paradise"
+catalog -d -a "Coolio"
+catalog -d -a "Coolio"
+catalog -d "Coolio"
 bye

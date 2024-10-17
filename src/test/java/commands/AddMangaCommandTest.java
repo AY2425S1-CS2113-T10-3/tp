@@ -27,7 +27,7 @@ public class AddMangaCommandTest {
     @Test
     public void addMangaCommand_addOneManga_authorCountOneMangaNameMatch() {
         try {
-            commandUnderTest = new AddMangaCommand("add -a \"Kubo Tite\" -m \"Bleach\"");
+            commandUnderTest = new AddMangaCommand("catalog -a \"Kubo Tite\" -m \"Bleach\"");
             commandUnderTest.execute(ui, authorList);
             assertEquals(1, authorList.size());
             assertEquals("Bleach", authorList.getAuthor("Kubo Tite").getMangaList().get(0).getMangaName());
@@ -41,7 +41,7 @@ public class AddMangaCommandTest {
     @Test
     public void addMangaCommand_addDuplicateManga_mangaExistsExceptionThrown() {
         try {
-            commandUnderTest = new AddMangaCommand("add -a \"Kubo Tite\" -m \"Bleach\"");
+            commandUnderTest = new AddMangaCommand("catalog -a \"Kubo Tite\" -m \"Bleach\"");
             commandUnderTest.execute(ui, authorList);
             Exception exception = assertThrows(TantouException.class, () -> {
                 commandUnderTest.execute(ui, authorList);

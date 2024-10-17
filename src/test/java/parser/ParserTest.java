@@ -34,22 +34,22 @@ public class ParserTest {
 
     @Test
     public void getUserCommand_deleteAuthor_parsedCorrectly() {
-        parseInputAssertCommandType("delete -a \"test\"", DeleteAuthorCommand.class);
+        parseInputAssertCommandType("catalog -d -a \"test\"", DeleteAuthorCommand.class);
     }
 
     @Test
     public void getUserCommand_deleteManga_parsedCorrectly() {
-        parseInputAssertCommandType("delete -a \"test\" -m \"test\"", DeleteMangaCommand.class);
+        parseInputAssertCommandType("catalog -d -a \"test\" -m \"test\"", DeleteMangaCommand.class);
     }
 
     @Test
     public void getUserCommand_addAuthor_parsedCorrectly() {
-        parseInputAssertCommandType("add -a \"test\"", AddAuthorCommand.class);
+        parseInputAssertCommandType("catalog -a \"test\"", AddAuthorCommand.class);
     }
 
     @Test
     public void getUserCommand_addManga_parsedCorrectly() {
-        parseInputAssertCommandType("add -a \"test\" -m \"test\"", AddMangaCommand.class);
+        parseInputAssertCommandType("catalog -a \"test\" -m \"test\"", AddMangaCommand.class);
     }
 
     private void parseInputAssertCommandType(String input, Class<? extends Command> expectedClass) {
