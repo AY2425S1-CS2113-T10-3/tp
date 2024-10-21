@@ -1,15 +1,12 @@
 package author;
 
-import com.google.gson.annotations.Expose;
 import manga.Manga;
 import manga.MangaList;
 
 import java.util.Objects;
 
 public class Author {
-    @Expose
     private String authorName;
-    @Expose
     private MangaList mangaList;
 
     public Author(String authorName) {
