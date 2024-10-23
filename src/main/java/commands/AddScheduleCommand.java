@@ -1,21 +1,22 @@
 package commands;
 
 import author.Author;
+import author.AuthorList;
 import exceptions.TantouException;
 import manga.Manga;
 import storage.Storage;
 import ui.Ui;
-import author.AuthorList;
 
 import java.util.logging.Level;
 
-import static constants.Command.ADD_COMMAND;
+import static constants.Command.CATALOG_COMMAND;
 
-public class AddDeadlineCommand extends Command {
+//@@author iaso1774
+public class AddScheduleCommand extends Command{
     private String userInput;
 
-    public AddDeadlineCommand(String userInput) {
-        super(ADD_COMMAND);
+    public AddScheduleCommand(String userInput) {
+        super(CATALOG_COMMAND);
         this.userInput = userInput;
     }
 
@@ -29,8 +30,8 @@ public class AddDeadlineCommand extends Command {
         String deadline = parser.getDeadlineDateFromInput(userInput);
 
         if (deadline.isEmpty() || mangaName.isEmpty() || authorName.isEmpty()) {
-            logger.warning("No deadline, author, or manga provided.");
-            throw new TantouException("No deadline date, author, or manga provided!");
+            logger.warning("No schedule date, author, or manga provided.");
+            throw new TantouException("No schedule date, author, or manga provided!");
         }
 
         Author incomingAuthor = new Author(authorName);

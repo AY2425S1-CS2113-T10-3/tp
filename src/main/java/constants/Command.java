@@ -7,6 +7,7 @@ public class Command {
     public static final String VIEW_COMMAND = "view";
     public static final String DELETE_COMMAND = "delete";
     public static final String SALES_COMMAND = "sales";
+    public static final String SCHEDULE_COMMAND = "schedule";
 
     public static final int COMMAND_INDEX = 0;
 }

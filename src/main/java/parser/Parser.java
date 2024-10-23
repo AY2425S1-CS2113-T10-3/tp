@@ -1,15 +1,6 @@
 package parser;
 
-import commands.AddAuthorCommand;
-import commands.AddMangaCommand;
-import commands.AddSalesCommand;
-import commands.ByeCommand;
-import commands.Command;
-import commands.DeleteAuthorCommand;
-import commands.DeleteDeadlineCommand;
-import commands.DeleteMangaCommand;
-import commands.ViewAuthorsCommand;
-import commands.ViewMangasCommand;
+import commands.*;
 import exceptions.TantouException;
 
 import org.apache.commons.cli.CommandLine;
@@ -27,6 +18,7 @@ import static constants.Command.VIEW_COMMAND;
 import static constants.Command.COMMAND_INDEX;
 import static constants.Command.DELETE_COMMAND;
 import static constants.Command.SALES_COMMAND;
+import static constants.Command.SCHEDULE_COMMAND;
 import static constants.Options.LONG_OPTION_INDEX;
 import static constants.Options.OPTIONS_ARRAY;
 import static constants.Options.OPTION_DESC_INDEX;
@@ -90,9 +82,7 @@ public class Parser {
             throw new TantouException("Invalid view command provided!");
         //@@author sarahchow03
         case DELETE_COMMAND:
-            if (isValidDeadlineCommand(userInput)) {
-                return new DeleteDeadlineCommand(userInput);
-            } else if (isValidMangaCommand(userInput)) {
+            if (isValidMangaCommand(userInput)) {
                 return new DeleteMangaCommand(userInput);
             } else if (isValidAuthorCommand(userInput)) {
                 return new DeleteAuthorCommand(userInput);
@@ -100,6 +90,11 @@ public class Parser {
             throw new TantouException("Invalid delete command provided!");
         case SALES_COMMAND:
             return processAddSalesCommand(userInput);
+        //@@author iaso1774
+        case SCHEDULE_COMMAND:
+            if (isValidScheduleCommand(userInput)) {
+                return new AddScheduleCommand(userInput);
+            }
         default:
             throw new TantouException("Invalid command provided!");
         }
@@ -403,7 +398,7 @@ public class Parser {
     }
 
     //@@author iaso1774
-    private boolean isValidDeadlineCommand(String userInput) throws TantouException {
+    private boolean isValidScheduleCommand(String userInput) throws TantouException {
         try {
             command = ownParser.parse(options, getUserInputAsList(userInput));
             return command.hasOption(constants.Options.BY_DATE_OPTION)
