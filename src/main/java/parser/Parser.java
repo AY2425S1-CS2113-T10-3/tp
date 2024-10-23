@@ -1,6 +1,15 @@
 package parser;
 
-import commands.*;
+import commands.AddAuthorCommand;
+import commands.AddMangaCommand;
+import commands.AddSalesCommand;
+import commands.ByeCommand;
+import commands.Command;
+import commands.DeleteAuthorCommand;
+import commands.DeleteMangaCommand;
+import commands.ViewAuthorsCommand;
+import commands.ViewMangasCommand;
+import commands.AddScheduleCommand;
 import exceptions.TantouException;
 
 import org.apache.commons.cli.CommandLine;
@@ -95,6 +104,7 @@ public class Parser {
             if (isValidScheduleCommand(userInput)) {
                 return new AddScheduleCommand(userInput);
             }
+            throw new TantouException("Invalid schedule command provided!");
         default:
             throw new TantouException("Invalid command provided!");
         }
