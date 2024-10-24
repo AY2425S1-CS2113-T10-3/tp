@@ -20,16 +20,16 @@ import static constants.Command.DELETE_COMMAND;
  */
 public class DeleteAuthorCommand extends Command {
     // private static final Logger logger = Logger.getLogger(DeleteAuthorCommand.class.getName());
-    private String userInput;
+    private String authorName;
 
     /**
      * Constructs a DeleteAuthorCommand with the given user input.
      *
-     * @param userInput The user's input string containing the author that is to be deleted.
+     * @param userInputList The user's input list containing the author that is to be deleted.
      */
-    public DeleteAuthorCommand(String userInput) {
+    public DeleteAuthorCommand(String authorName) {
         super(DELETE_COMMAND);
-        this.userInput = userInput;
+        this.authorName = authorName;
     }
 
     /**
@@ -42,7 +42,6 @@ public class DeleteAuthorCommand extends Command {
      */
     @Override
     public void execute(Ui ui, AuthorList authorList) throws TantouException {
-        String authorName = parser.getAuthorNameFromInput(userInput);
 
         if (authorName.isEmpty()) {
             logger.log(Level.SEVERE, "Author name cannot be empty");

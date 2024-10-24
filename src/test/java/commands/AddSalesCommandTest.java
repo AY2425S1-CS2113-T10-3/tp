@@ -37,7 +37,8 @@ class AddSalesCommandTest {
     @Test
     public void execute_validInput_addSalesDataSuccessfully() {
         try {
-            commandUnderTest = new AddSalesCommand("sales -a \"test author\" -m \"test manga\" -p \"10.90\" -q \"20\"");
+            String[] userInputList = {"sales", "-a", "test author", "-m", "test manga", "-p", "10.90", "-q", "20"};
+            commandUnderTest = new AddSalesCommand(userInputList);
             commandUnderTest.execute(ui, authorList);
             Sale sale = existingAuthor.getManga("test manga").getSalesData();
             assertEquals(20, sale.getQuantitySold());
@@ -52,8 +53,9 @@ class AddSalesCommandTest {
     @Test
     public void execute_negativeQuantity_cannotBeLessThanZeroExceptionThrown() {
         try {
+            String[] userInputList = {"sales", "-a", "test author", "-m", "test manga", "-p", "10.90", "-q", "-20"};
             commandUnderTest = new AddSalesCommand(
-                    "sales -a \"test author\" -m \"test manga\" -p \"10.90\" -q \"-20\""
+                    userInputList
             );
             Exception exception = assertThrows(TantouException.class, () -> {
                 commandUnderTest.execute(ui, authorList);
@@ -68,8 +70,9 @@ class AddSalesCommandTest {
     @Test
     public void execute_negativeUnitPrice_cannotBeLessThanZeroExceptionThrown() {
         try {
+            String[] userInputList = {"sales", "-a", "test author", "-m", "test manga", "-p", "-10.90", "-q", "20"};
             commandUnderTest = new AddSalesCommand(
-                    "sales -a \"test author\" -m \"test manga\" -p \"-10.90\" -q \"20\""
+                    userInputList
             );
             Exception exception = assertThrows(TantouException.class, () -> {
                 commandUnderTest.execute(ui, authorList);

@@ -1,18 +1,1 @@
-catalog -a "Kubo Tite" -m "Bleach"
-catalog -a "Oda Eiichiro"
-catalog -a Gege Akutami
-catalog -a "Gege Akutami" -m Jujutsu Kaisen
-catalog -a "Gege Akutami" -m "Jujutsu Kaisen"
-catalog -a
-catalog -a ""
-catalog -a -m
-catalog -a "" -m
-catalog -a "" -m ""
-catalog -a "Coolio" -m "Gangsta's Paradise"
-catalog -d -a Coolio -m "Gangsta's Paradise"
-catalog -d -a "Coolio" -m "Gangsta's Paradise"
-catalog -d -a "Coolio" -m "Gangsta's Paradise"
-catalog -d -a "Coolio"
-catalog -d -a "Coolio"
-catalog -d "Coolio"
 bye

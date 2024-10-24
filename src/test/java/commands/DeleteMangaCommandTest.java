@@ -35,7 +35,8 @@ class DeleteMangaCommandTest {
     @Test
     public void deleteMangaCommand_deleteSingleManga_mangaCountZero() {
         try {
-            commandUnderTest = new DeleteMangaCommand("catalog -d -a \"test1\" -m \"test1\"");
+            String[] userInputList = {"test1", "test1"};
+            commandUnderTest = new DeleteMangaCommand(userInputList);
             commandUnderTest.execute(ui, authorList);
             assertEquals(0, author.getMangaList().size());
         } catch (TantouException e) {
@@ -50,7 +51,8 @@ class DeleteMangaCommandTest {
     public void deleteMangaCommand_deleteNonExistingManga_mangaDoesNotExistsExceptionThrown() {
         try {
             // Simulate no relevant manga
-            commandUnderTest = new DeleteMangaCommand("catalog -d -a \"test1\" -m \"test1\"");
+            String[] userInputList = {"test1", "test1"};
+            commandUnderTest = new DeleteMangaCommand(userInputList);
             commandUnderTest.execute(ui, authorList);
             // Delete non-existing manga
             // A TantouException should be thrown when an author that does not exist is deleted
@@ -70,10 +72,12 @@ class DeleteMangaCommandTest {
     public void deleteMangaCommand_deleteFromNonExistingAuthor_mangaDoesNotExistsExceptionThrown() {
         try {
             // Simulate no relevant author
-            Command deleteAuthor = new DeleteAuthorCommand("catalog -d -a \"test1\"");
+            String authorName = "test1";
+            Command deleteAuthor = new DeleteAuthorCommand(authorName);
             deleteAuthor.execute(ui, authorList);
             // Delete manga from non-existing author
-            commandUnderTest = new DeleteMangaCommand("catalog -d -a \"test1\" -m \"test1\"");
+            String[] mangaInputList = {"test1", "test1"};
+            commandUnderTest = new DeleteMangaCommand(mangaInputList);
             // A TantouException should be thrown when an author that does not exist is deleted
             Exception exception = assertThrows(TantouException.class, () -> commandUnderTest.execute(ui, authorList));
 
@@ -91,7 +95,8 @@ class DeleteMangaCommandTest {
     public void deleteMangaCommand_emptyAuthorName_noAuthorOrMangaProvidedExceptionThrown() {
         try {
             // Simulate no author provided
-            commandUnderTest = new DeleteMangaCommand("catalog -d -a \"\" -m \"Bleach\"");
+            String[] userInputList = {"", "Bleach"};
+            commandUnderTest = new DeleteMangaCommand(userInputList);
             // A TantouException should be thrown as no author is provided
             Exception exception = assertThrows(TantouException.class, () -> {
                 commandUnderTest.execute(ui, authorList);
@@ -108,7 +113,8 @@ class DeleteMangaCommandTest {
     public void deleteMangaCommand_emptyMangaName_noAuthorOrMangaProvidedExceptionThrown() {
         try {
             // Simulate no author provided
-            commandUnderTest = new DeleteMangaCommand("catalog -d -a \"Kubo Tite\" -m \"\"");
+            String[] userInputList = {"Kubo Tite", ""};
+            commandUnderTest = new DeleteMangaCommand(userInputList);
             // A TantouException should be thrown as no author is provided
             Exception exception = assertThrows(TantouException.class, () -> {
                 commandUnderTest.execute(ui, authorList);

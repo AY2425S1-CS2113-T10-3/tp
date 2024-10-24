@@ -28,7 +28,8 @@ public class AddAuthorCommandTest {
     @Test
     public void addAuthorCommand_addSingleAuthor_authorCountOne() {
         try {
-            commandUnderTest = new AddAuthorCommand("catalog -a \"Kubo Tite\"");
+            String authorName = "Kubo Tite";
+            commandUnderTest = new AddAuthorCommand(authorName);
             commandUnderTest.execute(ui, authorList);
             assertEquals(1, authorList.size());
         } catch (TantouException e) {
@@ -42,7 +43,8 @@ public class AddAuthorCommandTest {
     @Test
     public void addAuthorCommand_addDuplicateAuthor_authorExistsExceptionThrown() {
         try {
-            commandUnderTest = new AddAuthorCommand("catalog -a \"Kubo Tite\"");
+            String authorName = "Kubo Tite";
+            commandUnderTest = new AddAuthorCommand(authorName);
             commandUnderTest.execute(ui, authorList);
             // A TantouException should be thrown when a duplicate author tries to be added
             Exception exception = assertThrows(TantouException.class, () -> {
@@ -62,7 +64,9 @@ public class AddAuthorCommandTest {
     public void addAuthorCommand_emptyAuthorName_noAuthorProvidedExceptionThrown() {
         try {
             // Simulate no author provided
-            commandUnderTest = new AddAuthorCommand("catalog -a \"\"");
+            // This scenario is unlikely to occur as empty arguments are caught at the Parser level
+            String authorName = "";
+            commandUnderTest = new AddAuthorCommand(authorName);
             // A TantouException should be thrown as no author is provided
             Exception exception = assertThrows(TantouException.class, () -> {
                 commandUnderTest.execute(ui, authorList);

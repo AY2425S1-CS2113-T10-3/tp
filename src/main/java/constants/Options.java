@@ -1,27 +1,27 @@
 package constants;
 
 public class Options {
-    public static final String AUTHOR_OPTION = "a";
+    public static final String AUTHOR_OPTION = "-a";
     public static final String AUTHOR_LONG_OPTION = "author";
     public static final String AUTHOR_OPTION_DESC = "Author name";
 
-    public static final String MANGA_OPTION = "m";
+    public static final String MANGA_OPTION = "-m";
     public static final String MANGA_LONG_OPTION = "manga";
     public static final String MANGA_OPTION_DESC = "Manga name";
 
-    public static final String BY_DATE_OPTION = "b";
+    public static final String BY_DATE_OPTION = "-b";
     public static final String BY_DATE_LONG_OPTION = "by";
     public static final String BY_DATE_DESC = "Deadline due date";
 
-    public static final String DELETE_OPTION = "d";
+    public static final String DELETE_OPTION = "-d";
     public static final String DELETE_LONG_OPTION = "delete";
     public static final String DELETE_OPTION_DESC = "To delete";
 
-    public static final String QUANTITY_OPTION = "q";
+    public static final String QUANTITY_OPTION = "-q";
     public static final String QUANTITY_LONG_OPTION = "quantity";
     public static final String QUANTITY_DESC = "Quantity of copies sold";
 
-    public static final String PRICE_OPTION = "p";
+    public static final String PRICE_OPTION = "-p";
     public static final String PRICE_LONG_OPTION = "price";
     public static final String PRICE_DESC = "Unit price per copy";
 

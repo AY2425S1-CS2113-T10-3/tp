@@ -12,24 +12,25 @@ import static constants.Command.VIEW_COMMAND;
  * Represents the <code>view</code> command with the <code>-a</code> option. Handles its execution.
  */
 public class ViewMangasCommand extends Command {
-    private String userInput;
+    private String authorName;
 
     public ViewMangasCommand(String userInput) {
         super(VIEW_COMMAND);
-        this.userInput = userInput;
+        this.authorName = userInput;
     }
 
     @Override
     public void execute(Ui ui, AuthorList authorList) throws TantouException {
         assert ui != null : "Ui must not be null";
         assert authorList != null : "authorList must not be null";
+        assert authorName != null : "An author name must be provided";
 
-        if (authorList.size() == 0) {
+        if (authorList.isEmpty()) {
             System.out.println("You have no authors under you! Maybe you are the one slacking...");
             logger.info("authorList is empty");
             return;
         }
-        String authorName = parser.getAuthorNameFromInput(userInput);
+
         if (authorName.isEmpty()) {
             logger.warning("Author argument is empty");
             throw new TantouException("No author provided!");

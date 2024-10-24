@@ -11,20 +11,19 @@ import static constants.Command.CATALOG_COMMAND;
 
 //@@author averageandyyy
 public class AddMangaCommand extends Command {
-    private String userInput;
+    private String authorName;
+    private String mangaName;
 
-    public AddMangaCommand(String userInput) {
+    public AddMangaCommand(String[] userInputList) {
         super(CATALOG_COMMAND);
-        this.userInput = userInput;
+        this.authorName = userInputList[0];
+        this.mangaName = userInputList[1];
     }
 
     @Override
     public void execute(Ui ui, AuthorList authorList) throws TantouException {
         // Empty user input should have been caught at the Parser level
-        assert !(userInput.isEmpty()) : "No user input provided";
-
-        String authorName = parser.getAuthorNameFromInput(userInput);
-        String mangaName = parser.getMangaNameFromInput(userInput);
+        assert (authorName != null && mangaName != null) : "No user input provided";
 
         if (authorName.isEmpty() || mangaName.isEmpty()) {
             logger.warning("No author or manga provided!");
