@@ -28,6 +28,7 @@ import static constants.Command.COMMAND_INDEX;
 import static constants.Command.SALES_COMMAND;
 import static constants.Command.VIEW_COMMAND;
 import static constants.Options.AUTHOR_OPTION;
+import static constants.Options.DELETE_OPTION;
 import static constants.Options.MANGA_OPTION;
 import static constants.Regex.AUTHOR_OPTION_REGEX;
 import static constants.Regex.DELETE_OPTION_REGEX;
@@ -86,10 +87,11 @@ public class Parser {
         if (isValidDeleteCommand(userInput)) {
             userInput = removeDeleteOption(userInput);
             // After removing " -d" at the end, check for intermediate " -d " in the input
-            if (isSingleFlag(userInput, DELETE_OPTION_REGEX + SPACE_REGEX)) {
-                return processDeleteAuthorMangaCommand(userInput);
-            }
+            // Will throw if found
+            isSingleFlag(userInput, DELETE_OPTION_REGEX + SPACE_REGEX);
+            return processDeleteAuthorMangaCommand(userInput);
         }
+
         return processAddAuthorMangaCommand(userInput);
     }
 
@@ -113,6 +115,9 @@ public class Parser {
         if (userInput.contains(DELETE_OPTION_REGEX)) {
             if (!userInput.endsWith(DELETE_OPTION_REGEX)) {
                 throw new InvalidDeleteCommandException();
+            }
+            if (countFlags(userInput, DELETE_OPTION_REGEX + SPACE_REGEX) != 0) {
+                throw new DuplicateFlagException(DELETE_OPTION);
             }
             return true;
         }
@@ -177,22 +182,27 @@ public class Parser {
     }
 
     //@@author averageandyyy
-    private boolean isSingleFlag(String userInput, String flag) throws TantouException {
+    private int countFlags(String userInput, String flag) {
         Pattern pattern = Pattern.compile(flag);
         Matcher matcher = pattern.matcher(userInput);
-        boolean hasFlag = false;
+        int count = 0;
 
-        // Exception thrown if duplicate flag is found
         while (matcher.find()) {
-            if (!hasFlag) {
-                hasFlag = true;
-            } else {
-                throw new DuplicateFlagException(flag.trim());
-            }
+            count++;
         }
 
-        // Should return true
-        return hasFlag;
+        return count;
+    }
+
+    //@@author averageandyyy
+    private boolean isSingleFlag(String userInput, String flag) throws TantouException {
+        int count = countFlags(userInput, flag);
+
+        if (count != 1) {
+            throw new DuplicateFlagException(flag.trim());
+        }
+
+        return count == 1;
     }
 
     //@@author averageandyyy
