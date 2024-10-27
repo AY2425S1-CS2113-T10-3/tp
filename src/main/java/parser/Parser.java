@@ -169,13 +169,58 @@ public class Parser {
 
     //@@author averageandyyy
     private boolean isValidAuthorCommand(String userInput) throws TantouException {
-        return hasAuthorFlagAndArgument(userInput);
+        return hasAuthorFlagAndArgument(userInput) && noDuplicateAuthorFlags(userInput);
+    }
+
+    //@@author averageandyyy
+    private boolean isSingleFlag(String userInput, String flag) throws TantouException {
+        Pattern pattern = Pattern.compile(flag);
+        Matcher matcher = pattern.matcher(userInput);
+        boolean hasFlag = false;
+
+        // Exception thrown if duplicate flag is found
+        while (matcher.find()) {
+            if (!hasFlag) {
+                hasFlag = true;
+            } else {
+                throw new TantouException("Duplicate flag found!");
+            }
+        }
+
+        // Should return true
+        return hasFlag;
+    }
+
+    //@@author averageandyyy
+    private boolean noDuplicateAuthorFlags(String userInput) throws TantouException {
+        // Potential misinputs after catalog removal: " -a Kubo Tite -a"
+        // " -a Kubo -a Tite"
+        // " -a -a Kubo Tite"
+
+        // Edge case for where the flag is at the end of the input
+        if (userInput.endsWith(SPACE_REGEX + AUTHOR_OPTION)) {
+            throw new TantouException("Duplicate author flag detected!");
+        }
+
+        // Checks for duplicate intermediate flags
+        return isSingleFlag(userInput, AUTHOR_OPTION_REGEX);
+    }
+
+    //@@author averageandyyy
+    private boolean noDuplicateMangaFlags(String userInput) throws TantouException {
+        // Edge case for where the flag is at the end of the input
+        if (userInput.endsWith(SPACE_REGEX + MANGA_OPTION)) {
+            throw new TantouException("Duplicate manga flag detected!");
+        }
+
+        // Checks for duplicate intermediate flags
+        return isSingleFlag(userInput, MANGA_OPTION_REGEX);
     }
 
     //@@author averageandyyy
     private boolean isValidMangaCommand(String userInput) throws TantouException {
-        return hasAuthorFlagAndArgument(userInput) &&
-                hasMangaFlagAndArgument(userInput) &&
+        return hasAuthorFlagAndArgument(userInput) && noDuplicateAuthorFlags(userInput) &&
+                hasMangaFlagAndArgument(userInput) && noDuplicateMangaFlags(userInput) &&
                 isAuthorBeforeManga(userInput);
     }
 
