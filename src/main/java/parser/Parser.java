@@ -86,9 +86,6 @@ public class Parser {
         userInput = removeCatalogPrefix(userInput);
         if (isValidDeleteCommand(userInput)) {
             userInput = removeDeleteOption(userInput);
-            // After removing " -d" at the end, check for intermediate " -d " in the input
-            // Will throw if found
-            isSingleFlag(userInput, DELETE_OPTION_REGEX + SPACE_REGEX);
             return processDeleteAuthorMangaCommand(userInput);
         }
 
