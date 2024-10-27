@@ -9,6 +9,7 @@ import commands.DeleteAuthorCommand;
 import commands.DeleteMangaCommand;
 import commands.ViewAuthorsCommand;
 import commands.ViewMangasCommand;
+import exceptions.DuplicateFlagException;
 import exceptions.InvalidCatalogCommandException;
 import exceptions.InvalidDeleteCommandException;
 import exceptions.InvalidSalesCommandException;
@@ -84,7 +85,10 @@ public class Parser {
         userInput = removeCatalogPrefix(userInput);
         if (isValidDeleteCommand(userInput)) {
             userInput = removeDeleteOption(userInput);
-            return processDeleteAuthorMangaCommand(userInput);
+            // After removing " -d" at the end, check for intermediate " -d " in the input
+            if (isSingleFlag(userInput, DELETE_OPTION_REGEX + SPACE_REGEX)) {
+                return processDeleteAuthorMangaCommand(userInput);
+            }
         }
         return processAddAuthorMangaCommand(userInput);
     }
@@ -183,7 +187,7 @@ public class Parser {
             if (!hasFlag) {
                 hasFlag = true;
             } else {
-                throw new TantouException("Duplicate flag found!");
+                throw new DuplicateFlagException(flag.trim());
             }
         }
 
@@ -199,7 +203,7 @@ public class Parser {
 
         // Edge case for where the flag is at the end of the input
         if (userInput.endsWith(SPACE_REGEX + AUTHOR_OPTION)) {
-            throw new TantouException("Duplicate author flag detected!");
+            throw new DuplicateFlagException(AUTHOR_OPTION);
         }
 
         // Checks for duplicate intermediate flags
@@ -210,7 +214,7 @@ public class Parser {
     private boolean noDuplicateMangaFlags(String userInput) throws TantouException {
         // Edge case for where the flag is at the end of the input
         if (userInput.endsWith(SPACE_REGEX + MANGA_OPTION)) {
-            throw new TantouException("Duplicate manga flag detected!");
+            throw new DuplicateFlagException(MANGA_OPTION);
         }
 
         // Checks for duplicate intermediate flags
@@ -219,8 +223,8 @@ public class Parser {
 
     //@@author averageandyyy
     private boolean isValidMangaCommand(String userInput) throws TantouException {
-        return hasAuthorFlagAndArgument(userInput) && noDuplicateAuthorFlags(userInput) &&
-                hasMangaFlagAndArgument(userInput) && noDuplicateMangaFlags(userInput) &&
+        return hasAuthorFlagAndArgument(userInput) &&
+                hasMangaFlagAndArgument(userInput) &&
                 isAuthorBeforeManga(userInput);
     }
 
@@ -230,7 +234,7 @@ public class Parser {
         if (userInput.contains(SPACE_REGEX + AUTHOR_OPTION) && !userInput.contains(AUTHOR_OPTION_REGEX)) {
             throw new NoAuthorProvidedException();
         }
-        return userInput.contains(AUTHOR_OPTION_REGEX);
+        return userInput.contains(AUTHOR_OPTION_REGEX) && noDuplicateAuthorFlags(userInput);
     }
 
     //@@author averageandyyy
@@ -239,7 +243,7 @@ public class Parser {
         if (userInput.contains(SPACE_REGEX + MANGA_OPTION) && !userInput.contains(MANGA_OPTION_REGEX)) {
             throw new NoMangaProvidedException();
         }
-        return userInput.contains(MANGA_OPTION_REGEX);
+        return userInput.contains(MANGA_OPTION_REGEX) && noDuplicateMangaFlags(userInput);
     }
 
     private boolean isAuthorBeforeManga(String userInput) throws TantouException {
