@@ -175,7 +175,7 @@ public class Parser {
 
     //@@author averageandyyy
     private boolean isValidAuthorCommand(String userInput) throws TantouException {
-        return hasAuthorFlagAndArgument(userInput) && noDuplicateAuthorFlags(userInput);
+        return hasAuthorFlagAndArgument(userInput);
     }
 
     //@@author averageandyyy
